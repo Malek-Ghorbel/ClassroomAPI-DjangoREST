@@ -1,0 +1,23 @@
+# Virtual environment
+venv/
+.env
+
+# Compiled Python files
+*.pyc
+__pycache__/
+
+# Logs and error reports
+logs/
+*.log
+*.pot
+*.potx
+
+# Temporary app folders
+dist/
+build/
+
+# PyCharm
+.idea/
+
+# Database:
+db.sqlite3
