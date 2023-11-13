@@ -7,15 +7,16 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'first_name', 'last_name', 'role', 'password']
 
-    def to_representation(self, instance):
-        representation = super(UserSerializer, self).to_representation(instance)
-        # Remove password from the representation
-        representation.pop('password', None)
-        return representation
+
+# Used for returning users we shall not return the password
+class UserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name', 'role')
 
 
 class ClassroomSerializer(serializers.ModelSerializer):
-    enrolled_students = UserSerializer(many=True, read_only=True)
+    enrolled_students = UserDetailSerializer(many=True, read_only=True)
 
     class Meta:
         model = Classroom
@@ -23,8 +24,14 @@ class ClassroomSerializer(serializers.ModelSerializer):
         extra_kwargs = {'teacher': {'read_only': True}}
 
 
+class EnrollStudentSerializer(serializers.Serializer):
+    student_ids = serializers.ListField(
+        child=serializers.IntegerField()
+    )
+
+
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ['id', 'text', 'student', 'classroom', 'timestamp']
+        fields = ['id', 'text', 'student_id', 'classroom_id', 'timestamp']
         read_only_fields = ('student', 'classroom', 'timestamp')

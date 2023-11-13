@@ -38,7 +38,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'virtual_classroom',
+    'drf_yasg',
 ]
+
+# Django REST Framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

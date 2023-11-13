@@ -18,6 +18,3 @@ build/
 
 # PyCharm
 .idea/
-
-# Database:
-db.sqlite3
